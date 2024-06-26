@@ -47,7 +47,6 @@ def process_command(c):
     elif "open youtube" in c.lower():
         webbrowser.open("https://youtube.com")
     elif c.lower().startswith("play"):
-        print(c)
         song = c.lower().split(" ")[1]
         link = musicLibrary.music[song]
         webbrowser.open(link)
@@ -61,7 +60,7 @@ def process_command(c):
             titles = [article['title'] for article in articles]
             for i, title in enumerate(titles, start=1):
                 speak(f"{i}. {title}")
-                if int(i) == 10:
+                if int(i) == 5:
                     break
         else:
             speak(f"Failed to retrieve news: {response.status_code}")
@@ -73,7 +72,7 @@ def process_command(c):
     
 
 if __name__ == "__main__":
-    speak("Initialization of Jarvis.....")
+    speak("Initializing of Iris.....")
     # Listen for the wake word "Jarvis"
     while True:
         # obtain audio from the microphone
@@ -82,15 +81,15 @@ if __name__ == "__main__":
         try:
             with sr.Microphone() as source:
                 print("Listening...")
-                audio = r.listen(source, timeout=2, phrase_time_limit=1)
+                audio = r.listen(source, timeout=2, phrase_time_limit=2)
             # print("Sphinx thinks you said " + r.recognize_sphinx(audio))
             print("Recognising...")
             word = r.recognize_google(audio)
-            if(word.lower() == "jarvis"):
-                speak("Yes Devesh")
+            if(word.lower() == "iris"):
+                speak("Yes Dev")
                 # Listen for Command
                 with sr.Microphone() as source:
-                    print("Jarvis Active...")
+                    print("Iris is Active...")
                     audio = r.listen(source)
                     command = r.recognize_google(audio)
                     process_command(command)
